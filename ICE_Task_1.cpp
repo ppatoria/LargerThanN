@@ -9,16 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <iostream>
-
-template<typename ... Args>
-void println(const Args& ... args)
-{
-    ([](const auto& x) { std::cout << x << "\n"; }(args), ...);
-}
 
 #define MAX_SKIPLIST_HEIGHT 29
-
 
 struct node
 {
@@ -35,9 +27,9 @@ struct list
     int level;
     int size;
 };
-
 /* declare skip list globally */
 struct list mylist;
+
 
 static int
 random_level(void)
