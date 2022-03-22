@@ -37,7 +37,6 @@ public:
 
 	void insert(double data)
 	{
-		std::cout << "input : " << data << std::endl;
 		_total_nodes = _total_nodes + 1;
 		_root = insert(_root, data);
 	}
@@ -64,7 +63,7 @@ public:
 		return getRank(_root, x);
 	}
 	
-	float getPercent(double x)
+	int getPercent(double x)
 	{
 		auto rank = getRank(x);
 		float fraction = (rank / _total_nodes);
@@ -109,19 +108,30 @@ namespace random
 	}
 }
 
+ std::vector<double> get_input(int n = 128000000)
+{
+	std::vector<double> v(n);
+	for (int i = 0; i < n;  i++)
+	{
+		v[i] = random::number();
+	}
+	return v;
+}
+
 int main()
 {
 	bst tree;
 	
-	for (int i = 0; i < 1000; i++)
+	for (const auto& num : get_input(1000))
 	{
-		auto data = random::number();		
-		std::cout << "data" << std::endl;
-		tree.insert(data);
-		auto percent = tree.getPercent(data);
-		if(percent == 95)
-			std::cout << "smallest number that is larger than 95 % of numbers encountered so far: " << data << " percentage: " << percent << std::endl;
+		std::cout << num << std::endl;
+		tree.insert(num);
+		auto percent = tree.getPercent(num);
+		if (percent == 95)
+		{
+			std::cout << "smallest number that is larger than 95 % of numbers encountered so far: " << num << " percentage: " << percent << std::endl;
+			return EXIT_SUCCESS;
+		}
 	}
-
-	return 0;
+	return EXIT_SUCCESS;
 }
