@@ -35,11 +35,12 @@ public:
 	bst() :_total_nodes(0), _root(nullptr)
 	{}
 
-	bool insert_while(int larger_than_percent, double data)
+	double insert(double data)
 	{
+		std::cout << "input : " << data << std::endl;
 		_total_nodes = _total_nodes + 1;
 		_root = insert(_root, data);
-		return (getPercent(data) >= 95);
+		return getPercent(data);
 	}
 
 	node* insert(node*& root, double data)
@@ -64,11 +65,11 @@ public:
 		return getRank(_root, x);
 	}
 	
-	double getPercent(double x)
+	float getPercent(double x)
 	{
 		auto rank = getRank(x);
-		double fraction = (rank / _total_nodes);
-		double percent =  fraction * 100;
+		float fraction = (rank / _total_nodes);
+		float percent =  fraction * 100;
 		return percent;
 	}
 
@@ -96,16 +97,22 @@ public:
 	}
 };
 
+namespace random
+{
+	double number()
+	{
+		constexpr int MIN = 10;
+		constexpr int MAX = 100;
+		std::random_device rd;
+		std::default_random_engine eng(rd());
+		std::uniform_real_distribution<double> distr(MIN, MAX);
+		return distr(eng);
+	}
+}
+
 int main()
 {
-	constexpr int MIN = 10;
-	constexpr int MAX = 100;
 	bst tree;
-	std::random_device rd;
-	std::default_random_engine eng(rd());
-	std::uniform_real_distribution<double> distr(MIN, MAX);
-	double input = distr(eng);
-	std::cout << input << std::endl;		
-	while(!tree.insert_while(95, input));
+	while(tree.insert(random::number()) < 95);
 	return 0;
 }
