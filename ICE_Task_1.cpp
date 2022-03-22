@@ -106,22 +106,13 @@ double random_number()
 	return distr(eng);
 }
 
- std::vector<double> get_input(int n = 128000000)
-{
-	std::vector<double> v(n);
-	for (int i = 0; i < n;  i++)
-	{
-		v[i] = random_number();
-	}
-	return v;
-}
-
 int main()
 {
 	bst tree;
 	
-	for (const auto& num : get_input(1000))
+	for (int i = 0; i < 128000000;  i++)
 	{
+		auto num = random_number();
 		std::cout << num << std::endl;
 		tree.insert(num);
 		int percent = tree.getPercent(num);
