@@ -9,12 +9,14 @@
 #include <random>
 
 using namespace std;
+struct node;
+using node_ptr = std::shared_ptr<node>;
 
 struct node
 {
-	double	data;
-	node	*left, * right;
-	int		left_size;
+	double		data;
+	node_ptr	left,  right;
+	int			left_size;
 
 	node(double data) : 
 		data(data), 
@@ -24,11 +26,10 @@ struct node
 	{}
 };
 
-
 class bst
 {
 	float _total_nodes;
-	node* _root;
+	node_ptr _root;
 
 public:
 
@@ -41,10 +42,10 @@ public:
 		_root = insert(_root, data);
 	}
 
-	node* insert(node*& root, double data)
+	node_ptr insert(node_ptr root, double data)
 	{
 		if (!root)
-			return new node(data);
+			return std::make_shared<node>(data);
 
 		if (data <= root->data)
 		{
@@ -63,7 +64,7 @@ public:
 		return getRank(_root, x);
 	}
 	
-	int getPercent(double x)
+	float getPercent(double x)
 	{
 		auto rank = getRank(x);
 		float fraction = (rank / _total_nodes);
@@ -71,7 +72,7 @@ public:
 		return percent;
 	}
 
-	int getRank(node* root, double x)
+	int getRank(node_ptr root, double x)
 	{
 		if (root->data == x)
 			return root->left_size;
@@ -126,7 +127,7 @@ int main()
 	{
 		std::cout << num << std::endl;
 		tree.insert(num);
-		auto percent = tree.getPercent(num);
+		int percent = tree.getPercent(num);
 		if (percent == 95)
 		{
 			std::cout << "smallest number that is larger than 95 % of numbers encountered so far: " << num << " percentage: " << percent << std::endl;
