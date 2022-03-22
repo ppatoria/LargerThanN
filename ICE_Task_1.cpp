@@ -96,17 +96,14 @@ public:
 	}
 };
 
-namespace random
+double random_number()
 {
-	double number()
-	{
-		constexpr int MIN = 10;
-		constexpr int MAX = 100;
-		std::random_device rd;
-		std::default_random_engine eng(rd());
-		std::uniform_real_distribution<double> distr(MIN, MAX);
-		return distr(eng);
-	}
+	constexpr int MIN = 10;
+	constexpr int MAX = 100;
+	std::random_device rd;
+	std::default_random_engine eng(rd());
+	std::uniform_real_distribution<double> distr(MIN, MAX);
+	return distr(eng);
 }
 
  std::vector<double> get_input(int n = 128000000)
@@ -114,7 +111,7 @@ namespace random
 	std::vector<double> v(n);
 	for (int i = 0; i < n;  i++)
 	{
-		v[i] = random::number();
+		v[i] = random_number();
 	}
 	return v;
 }
