@@ -3,9 +3,9 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("ICE_Task_1")
+project ("larger_than_n")
 
 # Add source to this project's executable.
-add_executable (ICE_Task_1 "ICE_Task_1.cpp" )
+add_executable (larger_than_n "larger_than_n.cpp" )
 
 # TODO: Add tests and install targets if needed.
