@@ -35,12 +35,11 @@ public:
 	bst() :_total_nodes(0), _root(nullptr)
 	{}
 
-	double insert(double data)
+	void insert(double data)
 	{
 		std::cout << "input : " << data << std::endl;
 		_total_nodes = _total_nodes + 1;
 		_root = insert(_root, data);
-		return getPercent(data);
 	}
 
 	node* insert(node*& root, double data)
@@ -113,6 +112,16 @@ namespace random
 int main()
 {
 	bst tree;
-	while(tree.insert(random::number()) < 95);
+	
+	for (int i = 0; i < 1000; i++)
+	{
+		auto data = random::number();		
+		std::cout << "data" << std::endl;
+		tree.insert(data);
+		auto percent = tree.getPercent(data);
+		if(percent == 95)
+			std::cout << "smallest number that is larger than 95 % of numbers encountered so far: " << data << " percentage: " << percent << std::endl;
+	}
+
 	return 0;
 }
